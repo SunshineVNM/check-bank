@@ -8,7 +8,6 @@ const bankSearch = document.getElementById('bankSearch');
 const bankCode = document.getElementById('bankCode');
 const bankListEl = document.getElementById('bankList');
 const bankToggle = document.getElementById('bankToggle');
-const bankSelect = document.getElementById('bankSelect');
 const form = document.getElementById('lookupForm');
 const accountInput = document.getElementById('account');
 const submitBtn = document.getElementById('submitBtn');
@@ -93,7 +92,6 @@ function selectBank(bank, { focusAccount = true } = {}) {
   selectedBank = bank;
   bankCode.value = bank.code;
   bankSearch.value = bankLabel(bank);
-  bankSelect.value = bank.code;
   setDropdownOpen(false);
 
   if (focusAccount) accountInput.focus();
@@ -102,17 +100,6 @@ function selectBank(bank, { focusAccount = true } = {}) {
 function clearSelection() {
   selectedBank = null;
   bankCode.value = '';
-  bankSelect.value = '';
-}
-
-function populateSelect() {
-  bankSelect.innerHTML = '<option value="">— Chọn ngân hàng —</option>';
-  supportedBanks.forEach((b) => {
-    const opt = document.createElement('option');
-    opt.value = b.code;
-    opt.textContent = bankLabel(b);
-    bankSelect.appendChild(opt);
-  });
 }
 
 function setLoading(loading) {
@@ -193,7 +180,6 @@ async function loadBanks() {
         a.short_name.localeCompare(b.short_name, 'vi')
       );
       supportedBanks = getSupportedBanks();
-      populateSelect();
     }
   } catch {
     bankSearch.placeholder = 'Không tải được danh sách ngân hàng';
@@ -253,18 +239,6 @@ bankToggle.addEventListener('click', () => {
   }
 });
 
-bankSelect.addEventListener('change', () => {
-  const code = bankSelect.value;
-  if (!code) {
-    clearSelection();
-    bankSearch.value = '';
-    bankSearch.focus();
-    return;
-  }
-  const bank = supportedBanks.find((b) => b.code === code);
-  if (bank) selectBank(bank);
-});
-
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.bank-combobox')) {
     setDropdownOpen(false);
@@ -279,7 +253,7 @@ form.addEventListener('submit', async (e) => {
   const account = accountInput.value.trim();
 
   if (!bank) {
-    showResult('Vui lòng chọn ngân hàng (tìm kiếm hoặc chọn nhanh).', 'error');
+    showResult('Vui lòng chọn ngân hàng.', 'error');
     bankSearch.focus();
     return;
   }
