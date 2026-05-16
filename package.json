@@ -1,0 +1,19 @@
+{
+  "name": "check-tk-bank",
+  "version": "1.0.0",
+  "description": "Tra cứu thông tin tài khoản ngân hàng KJC Team",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "cf:dev": "wrangler pages dev public",
+    "cf:deploy": "wrangler pages deploy public"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.14.0"
+  }
+}

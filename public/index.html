@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tra cứu tài khoản ngân hàng</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Tra cứu tài khoản</h1>
+      <p class="subtitle">BankLookup — kiểm tra tên chủ tài khoản</p>
+    </header>
+
+    <main id="authGate" class="card auth-gate">
+      <h2 class="auth-title">Nhập mã truy cập</h2>
+      <p class="auth-hint">Chỉ người có mã mới được sử dụng công cụ tra cứu.</p>
+      <form id="authForm">
+        <div class="field">
+          <label for="accessSecret">Mã bí mật</label>
+          <input
+            type="password"
+            id="accessSecret"
+            placeholder="Nhập mã..."
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <p id="authError" class="auth-error hidden"></p>
+        <button type="submit" id="authSubmitBtn">Xác nhận</button>
+      </form>
+    </main>
+
+    <main id="appMain" class="card hidden">
+      <div class="app-toolbar">
+        <button type="button" id="logoutBtn" class="btn-link">Đăng xuất</button>
+      </div>
+      <form id="lookupForm">
+        <div class="field">
+          <label for="bankSearch">Ngân hàng</label>
+
+          <div class="bank-combobox">
+            <div class="combobox-input-wrap">
+              <input
+                type="text"
+                id="bankSearch"
+                placeholder="Gõ tên hoặc mã để tìm (VD: VCB, Techcombank)..."
+                autocomplete="off"
+                role="combobox"
+                aria-expanded="false"
+                aria-controls="bankList"
+                aria-autocomplete="list"
+              />
+              <button
+                type="button"
+                id="bankToggle"
+                class="combobox-toggle"
+                aria-label="Mở danh sách ngân hàng"
+                title="Chọn từ danh sách"
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                  <path fill="currentColor" d="M2.5 4.5L6 8l3.5-3.5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+                </svg>
+              </button>
+            </div>
+            <input type="hidden" id="bankCode" name="bank" required />
+            <ul id="bankList" class="bank-dropdown hidden" role="listbox"></ul>
+          </div>
+
+          <div class="bank-quick-select">
+            <label for="bankSelect" class="quick-label">Chọn nhanh</label>
+            <select id="bankSelect">
+              <option value="">— Chọn ngân hàng —</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="account">Số tài khoản</label>
+          <input
+            type="text"
+            id="account"
+            name="account"
+            placeholder="Nhập số tài khoản"
+            inputmode="numeric"
+            required
+          />
+        </div>
+
+        <button type="submit" id="submitBtn">
+          <span class="btn-text">Tra cứu</span>
+          <span class="spinner hidden" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <section id="result" class="result hidden" aria-live="polite"></section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
