@@ -261,7 +261,7 @@ bankSelect.addEventListener('change', () => {
     bankSearch.focus();
     return;
   }
-  const bank = supportedBanks.find((b) => => b.code === code);
+  const bank = supportedBanks.find((b) => b.code === code);
   if (bank) selectBank(bank);
 });
 
